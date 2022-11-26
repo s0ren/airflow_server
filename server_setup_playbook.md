@@ -349,4 +349,89 @@ Hvis jeg kører den i konsollen, virker direkte path til `airflow`, men kun i de
 ##ToDO
 
 * `export PATH=$PATH:~/.local/bin` i paassende start script. Helst så også services kan bruge det
-* 
+
+
+## Fredag 26. nov
+
+Prøver med virtuelle environments. Konkret `venv`.
+
+Se <https://python.land/virtual-environments/virtualenv>
+
+    sudo apt install python3.10-venv
+
+dernæst
+
+```bash
+cd ~
+mkdir airflow
+cd airflow
+python -m venv air
+source air/bin/activate
+```
+
+herafter alle kommandoerne i `install_core.sh`
+
+    chmod u+x install_core.sh 
+
+`install_core.sh`:
+```bash
+# Airflow needs a home. `~/airflow` is the default, but you can put it
+# somewhere else if you prefer (optional)
+export AIRFLOW_HOME=~/airflow
+
+AIRFLOW_VERSION=2.4.3
+PYTHON_VERSION="$(python --version | cut -d " " -f 2 | cut -d "." -f 1-2)"
+# For example: 3.7
+CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constraints-${AIRFLOW_VERSION}/constraints-no-providers-${PYTHON_VERSION}.txt"
+# For example: https://raw.githubusercontent.com/apache/airflow/constraints-2.4.3/constraints-no-providers-3.7.txt
+pip install "apache-airflow==${AIRFLOW_VERSION}" --constraint "${CONSTRAINT_URL}"
+
+```
+En kombi af 
+* <https://airflow.apache.org/docs/apache-airflow/stable/start.html> og 
+* <https://airflow.apache.org/docs/apache-airflow/stable/installation/installing-from-pypi.html>
+
+## YES!
+
+Nu kan vi køre `airflow` kommandoer!
+
+f.eks.
+    
+    airflow --help
+
+og 
+
+    airflow infor
+
+### start af ariflow
+
+    airflow db init
+
+i standalone mode
+
+    airflow standalone 
+
+eller måske 
+
+    ariflow standalone &
+
+
+## Eller installer med pip som root
+
+Inspirreret af Christopher Tao's <https://towardsdatascience.com/how-to-run-apache-airflow-as-daemon-using-linux-systemd-63a1d85f9702>
+
+Han lægger op til at installere med `pip install` som root... det advarer pip imod, men alternativet er at bruge `venv` og det har jeg ikke rigtigt styr på med `system.d` og alt det...
+
+jeg har samlet scriptet `install_core.sh` nævnt ovenfor.
+Det kører ejg nu som root:
+
+    cd airflow
+    sudo ./install_core.sh
+
+det kan jeg så checke med 
+
+    $ which airflow
+        /usr/local/bin/airflow
+
+Så nu er Airflow installeret i `/usr/local/bin`!
+**Läcker!**
