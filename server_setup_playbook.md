@@ -423,7 +423,7 @@ Inspirreret af Christopher Tao's <https://towardsdatascience.com/how-to-run-apac
 Han lægger op til at installere med `pip install` som root... det advarer pip imod, men alternativet er at bruge `venv` og det har jeg ikke rigtigt styr på med `system.d` og alt det...
 
 jeg har samlet scriptet `install_core.sh` nævnt ovenfor.
-Det kører ejg nu som root:
+Det kører jeg nu som root:
 
     cd airflow
     sudo ./install_core.sh
@@ -435,3 +435,6 @@ det kan jeg så checke med
 
 Så nu er Airflow installeret i `/usr/local/bin`!
 **Läcker!**
+
+
+Ahilleus gør noget lignende (meget meget mere forsimplet) men med anaconda til at lave virtuelle env. Det er interessant til `venv` måske <https://medium.com/@achilleus/easy-way-to-manage-your-airflow-setup-b7c030dd1cb8>
