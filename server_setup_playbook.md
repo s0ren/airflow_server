@@ -438,3 +438,7 @@ Så nu er Airflow installeret i `/usr/local/bin`!
 
 
 Ahilleus gør noget lignende (meget meget mere forsimplet) men med anaconda til at lave virtuelle env. Det er interessant til `venv` måske <https://medium.com/@achilleus/easy-way-to-manage-your-airflow-setup-b7c030dd1cb8>
+
+* https://medium.com/@shahbaz.ali03/run-apache-airflow-as-a-service-on-ubuntu-18-04-server-b637c03f4722
+* https://medium.com/@madtopcoder/install-apache-airflow-the-first-time-97e7eef76469
+* 
