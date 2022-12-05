@@ -515,3 +515,98 @@ jeg opretter den og prøver igen...
 
 I mit git projekt gemmer jeg lige de filer der er med i systemmapperne som kopier og symlinks...
 
+Lavet symlinks med
+
+    ln -s /etc/sysconfig/airflow etc/sysconfig/airflow
+
+    ln -s /usr/lib/systemd/system/airflow-scheduler.service usr/lib/systemd/system/airflow-scheduler.service
+
+    ln -s /usr/lib/systemd/system/airflow-webserver.service usr/lib/systemd/system/airflow-webserver.service
+
+    ln -s usr/lib/ lib
+
+    ln -s /usr/lib/tmpfiles.d/airflow.conf usr/lib/tmpfiles.d/airflow.conf
+
+alle med symlinkene med   __`ls -Rl symlinks/*`__
+
+    lrwxrwxrwx 1 soren soren    8 Dec  5 11:49 symlinks/lib -> usr/lib/
+
+    symlinks/etc:
+    total 4
+    drwxrwxr-x 2 soren soren 4096 Dec  5 10:39 sysconfig
+
+    symlinks/etc/sysconfig:
+    total 0
+    lrwxrwxrwx 1 soren soren 22 Dec  5 10:39 airflow -> /etc/sysconfig/airflow
+
+    symlinks/usr:
+    total 4
+    drwxrwxr-x 4 soren soren 4096 Dec  5 13:35 lib
+
+    symlinks/usr/lib:
+    total 8
+    drwxrwxr-x 3 soren soren 4096 Dec  5 11:42 systemd
+    drwxrwxr-x 2 soren soren 4096 Dec  5 13:36 tmpfiles.d
+
+    symlinks/usr/lib/systemd:
+    total 4
+    drwxrwxr-x 2 soren soren 4096 Dec  5 11:49 system
+
+    symlinks/usr/lib/systemd/system:
+    total 0
+    lrwxrwxrwx 1 soren soren 49 Dec  5 11:48 airflow-scheduler.service -> /usr/lib/systemd/system/airflow-scheduler.service
+    lrwxrwxrwx 1 soren soren 49 Dec  5 11:49 airflow-webserver.service -> /usr/lib/systemd/system/airflow-webserver.service
+
+    symlinks/usr/lib/tmpfiles.d:
+    total 0
+    lrwxrwxrwx 1 soren soren 32 Dec  5 13:36 airflow.conf -> /usr/lib/tmpfiles.d/airflow.conf
+
+Kopieret over til files, fordi symlinks gemmes som symlinks i git. Det er godt af have dem som symlinks, vil bare også gerne have indholdet.
+
+    cp -rL symlinks/. files/
+
+
+Det betyder altså at man kan redigere i symlinkene, og det har effekt med det samme på maskinen, men det kommer ikke med git commit før man kører kommandoen ovenfor igen, altså `cp -rL symlinks/. files/`
+
+#### User airflow
+
+    useradd airflow
+
+#### `/run/airflow`
+
+Til at huse `pid` for services (web?) 
+
+    sudo mkdir /run/airflow
+    sudo chown airflow:airflow /run/airflow
+    sudo chmod 0755 /run/airflow -R
+
+#### `/opt/airflow`
+
+til alt i `AIRFLOW_HOME`
+
+  * Airflow configurations
+  * SQLite that is used by Airflow
+  * DAGs
+  * Logs of DAGs
+Default er ellers i brugerens hjemme mappe
+
+    sudo mkdir /opt/airflow
+    sudo chown airflow:airflow /opt/airflow -R
+    sudo chmod 775 /opt/airflow -R
+
+#### kører lige `pip install ...` igen, fra ny edit af `install_core.sh`
+
+    edit edit edit (se commit)
+
+    chmod +x install_core.sh
+    sudo ./install_core.sh 
+
+#### Initialiser `AIRFLOW_HOME` og SQLite database
+
+    sudo bash
+
+og så 
+
+    export AIRFLOW_HOME=/opt/airflow
+    airflow initdb
+
