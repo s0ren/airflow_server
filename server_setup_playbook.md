@@ -441,4 +441,74 @@ Ahilleus gør noget lignende (meget meget mere forsimplet) men med anaconda til 
 
 * https://medium.com/@shahbaz.ali03/run-apache-airflow-as-a-service-on-ubuntu-18-04-server-b637c03f4722
 * https://medium.com/@madtopcoder/install-apache-airflow-the-first-time-97e7eef76469
-* 
+
+
+### Ifølge Christopher Tao
+
+Christopher Tao henviser til shaik zillani's [How to install apache airflow on ubuntu using python interpreter](https://medium.com/@shaikzillani/how-to-install-apache-airflow-on-ubuntu-using-python-interpreter-20f10348e7bd)
+
+så
+
+#### i følge Shaik Zillani
+
+    sudo apt-get install python-dev libsasl2-dev gcc 
+    sudo apt-get install libffi-dev 
+    sudo apt-get install libkrb5-dev 
+    sudo apt install virtualenv
+
+fejler på
+
+    Package python-dev is not available, but is referred to by another package.
+    This may mean that the package is missing, has been obsoleted, or
+    is only available from another source
+    However the following packages replace it:
+    python2-dev python2 python-dev-is-python3
+
+Så jeg ændrer til
+
+    sudo apt update
+    sudo apt-get install python-dev-is-python3 libsasl2-dev gcc 
+    sudo apt-get install libffi-dev 
+    sudo apt-get install libkrb5-dev 
+    sudo apt install virtualenv
+
+Måske endnu bedre med 
+
+    sudo apt update
+    sudo apt install python-dev-is-python3 libsasl2-dev gcc \
+    libffi-dev libibkrb5-dev virtualenv
+
+
+Nu kører jeg min egen `install_core.sh` som root:
+
+    sudo install_core.sh
+
+
+Og så ... 
+
+### tilbage til Christopher Tao
+
+Ned i temp mappe:
+
+    mkdir /tmp/airflow-daemon
+    cd /tmp/airflow-daemon
+
+Hent skabelon service unit filer:
+
+wget https://raw.githubusercontent.com/apache/airflow/master/scripts/systemd/airflow
+wget https://raw.githubusercontent.com/apache/airflow/master/scripts/systemd/airflow-scheduler.service
+wget https://raw.githubusercontent.com/apache/airflow/master/scripts/systemd/airflow-webserver.service
+wget https://raw.githubusercontent.com/apache/airflow/master/scripts/systemd/airflow.conf
+
+Kopiere unit filer og andre til rette plads:
+
+    sudo cp *.service /usr/lib/systemd/system/
+    sudo cp airflow.conf /usr/lib/tmpfiles.d/
+    sudo cp airflow /etc/sysconfig/
+
+Men hov, mappen `/etc/sysconfig/` findes ikke. Ikke på ubuntu og ikke i debian. Hvad så?
+
+jeg opretter den og prøver igen...
+
+
+[skifter lige det hele til at køre remote connectio i vscode]
