@@ -512,3 +512,6 @@ jeg opretter den og prøver igen...
 
 
 [skifter lige det hele til at køre remote connectio i vscode]
+
+I mit git projekt gemmer jeg lige de filer der er med i systemmapperne som kopier og symlinks...
+
