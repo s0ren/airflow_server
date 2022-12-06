@@ -656,7 +656,7 @@ Mangler bruger til at logge på webserveren...
 På ApacheAirflows website <https://airflow.apache.org/docs/apache-airflow/stable/security/webserver.html>, forslår de følgende (tilpasset):
 
     # create an admin user
-    sudo airflow users create \
+    sudo -u airflow AIRFLOW_HOME=/opt/airflow airflow users create \
         --username smag \
         --firstname Søren \
         --lastname Magnusson \
@@ -665,9 +665,23 @@ På ApacheAirflows website <https://airflow.apache.org/docs/apache-airflow/stabl
 
 Udskriver _mange_ rettigheder, og prompter for password. Jeg bruger midlertidigt standard: `password`
 
+Check:
+
+    sudo -u airflow AIRFLOW_HOME=/opt/airflow airflow users list
+
+=>
+
+    id | username | email        | first_name | last_name | roles
+    ===+==========+==============+============+===========+======
+    1  | smag     | smag@tec.dk  | Søren      | Magnusson | Admin
+
 # TODO
 
   - [ ] Lav resume med alle kommandoer
   - [ ] Opret det hele på tec/thomas server
-  - [ ] skift til postgraql
+  - [ ] skift til postgresql
+    - <https://airflow.apache.org/docs/apache-airflow/2.4.3/howto/set-up-database.html>
+  - [ ] skift til noget med en anden executer end SequentialExecutor
+  
+    - `Do not use SequentialExecutor in production. Click here for more information.` <https://airflow.apache.org/docs/apache-airflow/2.4.3/executor/index.html>
   - [ ] check docker images
