@@ -610,3 +610,64 @@ og så
     export AIRFLOW_HOME=/opt/airflow
     airflow initdb
 
+#### Edit `airflow-scheduler.service`,  `airflow-webserver.service`,  `/etc/sysconfig/airflow`
+
+Se Christopher Tao's tutorial
+
+#### Service start
+
+Kørte lige
+
+    sudo chown -R airflow:airflow /opt/airflow/
+
+igen, Så starter service'rne!
+
+Og, webserveren svarer på <http://localhost:8080>
+
+Services enables (så de genstarter, nåe serveren starter), med:
+
+    sudo systemctl enable airflow-scheduler.service 
+    sudo systemctl enable airflow-webserver.service 
+
+Ovenstående skal jo kun gøres _en_ gang, mens 
+
+    sudo systemctl start airflow-scheduler.service 
+
+og 
+
+    sudo systemctl start airflow-webserver.service 
+
+måske skal gøres flere gange.  
+Måske efterfulgt af:
+
+    sudo systemctl status airflow-scheduler.service
+    sudo journalctl -u airflow-scheduler -n 50
+
+og/eller
+
+    sudo systemctl status airflow-webserver.service
+    sudo journalctl -u airflow-webserver -n 50
+
+
+### Admin på webserveren
+
+Mangler bruger til at logge på webserveren...
+
+På ApacheAirflows website <https://airflow.apache.org/docs/apache-airflow/stable/security/webserver.html>, forslår de følgende (tilpasset):
+
+    # create an admin user
+    sudo airflow users create \
+        --username smag \
+        --firstname Søren \
+        --lastname Magnusson \
+        --role Admin \
+        --email smag@tec.dk
+
+Udskriver _mange_ rettigheder, og prompter for password. Jeg bruger midlertidigt standard: `password`
+
+# TODO
+
+  - [ ] Lav resume med alle kommandoer
+  - [ ] Opret det hele på tec/thomas server
+  - [ ] skift til postgraql
+  - [ ] check docker images

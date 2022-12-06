@@ -17,7 +17,7 @@
 # under the License.
 
 [Unit]
-Description=Airflow scheduler daemon
+Description=Airflow webserver daemon
 After=network.target postgresql.service mysql.service redis.service rabbitmq-server.service
 Wants=postgresql.service mysql.service redis.service rabbitmq-server.service
 
@@ -26,9 +26,10 @@ EnvironmentFile=/etc/sysconfig/airflow
 User=airflow
 Group=airflow
 Type=simple
-ExecStart=/usr/local/bin/airflow scheduler
-Restart=always
+ExecStart=/bin/airflow webserver --pid /run/airflow/webserver.pid
+Restart=on-failure
 RestartSec=5s
+PrivateTmp=true
 
 [Install]
 WantedBy=multi-user.target

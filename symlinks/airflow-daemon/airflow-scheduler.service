@@ -26,7 +26,7 @@ EnvironmentFile=/etc/sysconfig/airflow
 User=airflow
 Group=airflow
 Type=simple
-ExecStart=/usr/local/bin/airflow scheduler
+ExecStart=/bin/airflow scheduler
 Restart=always
 RestartSec=5s
 
