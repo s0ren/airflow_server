@@ -45,23 +45,28 @@ CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constraints-${A
 # For example: https://raw.githubusercontent.com/apache/airflow/constraints-2.4.3/constraints-no-providers-3.7.txt
 pip install "apache-airflow==${AIRFLOW_VERSION}" --constraint "${CONSTRAINT_URL}"
 
+# initializer database
+sudo -u airflow AIRFLOW_HOME=/opt/airflow airflow db init
+
 ## starter service og opsætter til at starte v. boot
 systemctl enable --now airflow-scheduler.service 
 systemctl enable --now airflow-webserver.service 
 
 #checker 
-systemctl status airflow-scheduler.service
-journalctl -u airflow-scheduler -n 50
-systemctl status airflow-webserver.service
-journalctl -u airflow-webserver -n 50
+systemctl status airflow-scheduler.service --no-pager
+journalctl -u airflow-scheduler -n 50 --no-pager
+systemctl status airflow-webserver.service --no-pager
+journalctl -u airflow-webserver -n 50 --no-pager
 
 # create an airflow admin user
+echo "creates user with password = 'password'. Please change later"
 sudo -u airflow AIRFLOW_HOME=/opt/airflow airflow users create \
     --username smag \
     --firstname Søren \
     --lastname Magnusson \
     --role Admin \
     --email smag@tec.dk
+    --password password
 
 # timezone might be off
 timedatectl set-timezone Europe/Copenhagen
