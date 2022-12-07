@@ -23,7 +23,10 @@ mkdir /etc/sysconfig/
 
 # postgit_fetch.sh
 ## skal lige have exec med `chmod u+x post_git_fetch.sh`
-cp -r files/. symlinks/. 
+#cp -r files/. symlinks/. 
+cp -rL files/usr/. symlinks/usr
+cp -rL files/etc/. symlinks/etc
+
 
 mkdir /run/airflow
 chown airflow:airflow /run/airflow
