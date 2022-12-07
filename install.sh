@@ -62,3 +62,6 @@ sudo -u airflow AIRFLOW_HOME=/opt/airflow airflow users create \
     --lastname Magnusson \
     --role Admin \
     --email smag@tec.dk
+
+# timezone might be off
+timedatectl set-timezone Europe/Copenhagen
