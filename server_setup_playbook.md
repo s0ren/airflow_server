@@ -675,6 +675,61 @@ Check:
     ===+==========+==============+============+===========+======
     1  | smag     | smag@tec.dk  | Søren      | Magnusson | Admin
 
+# RESUME
+
+Efter ny installation af `Ubuntu server 20.04.1`, installer git og clon repo:
+
+    sudo apt install git
+    git clone https://github.com/s0ren/airflow_server.git
+
+skift til `airflow_server` og kør `install.sh`
+
+    cd airflow_server
+    sudo ./install.sh
+
+**_`install.sh`_**: (som køres med sudo)
+
+    sudo install.sh
+
+```bash
+# show all commands:
+set -x 
+
+# update ubuntu
+echo "Update ubuntu"
+apt update
+apt upgrade -y
+
+# install required packeages
+apt-get install python-dev libsasl2-dev gcc 
+apt-get install libffi-dev 
+apt-get install libkrb5-dev 
+apt install virtualenv
+
+# Klargør mapper til config
+# mappen `/etc/sysconfig/` findes ikke (på ubuntu, tror jeg) så den opretter vi 
+
+mkdir /etc/sysconfig/
+
+# post fech .sh
+
+useradd airflow
+
+mkdir /run/airflow
+chown airflow:airflow /run/airflow
+chmod 0755 /run/airflow -R
+
+mkdir /opt/airflow
+chown airflow:airflow /opt/airflow -R
+chmod 775 /opt/airflow -R
+
+
+# install_core.sh indsættes her
+
+
+```
+
+
 # TODO
 
   - [ ] Lav resume med alle kommandoer
