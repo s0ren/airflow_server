@@ -10,7 +10,8 @@ apt upgrade -y
 apt-get install python-dev libsasl2-dev gcc 
 apt-get install libffi-dev 
 apt-get install libkrb5-dev 
-apt install virtualenv
+apt-get install virtualenv
+apt-get install python-is-python3
 
 # bruger til at køre airflow services
 useradd airflow
@@ -65,8 +66,8 @@ sudo -u airflow AIRFLOW_HOME=/opt/airflow airflow users create \
     --firstname Søren \
     --lastname Magnusson \
     --role Admin \
-    --email smag@tec.dk
-    --password password
+    --email smag@tec.dk \
+    --password password \
 
 # timezone might be off
 timedatectl set-timezone Europe/Copenhagen
