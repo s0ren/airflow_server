@@ -7,11 +7,11 @@ apt update
 apt upgrade -y
 
 # install required packeages
-apt-get install python-dev libsasl2-dev gcc 
-apt-get install libffi-dev 
-apt-get install libkrb5-dev 
-apt-get install virtualenv
-apt-get install python-is-python3
+apt-get install python-dev libsasl2-dev gcc -y
+apt-get install libffi-dev -y
+apt-get install libkrb5-dev -y
+apt-get install virtualenv -y
+apt-get install python-is-python3 -y
 
 # bruger til at køre airflow services
 useradd airflow
