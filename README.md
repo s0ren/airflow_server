@@ -21,5 +21,5 @@ Se [`server_setup_playbook.md`](server_setup_playbook.md), for processen og kild
     - <https://airflow.apache.org/docs/apache-airflow/2.4.3/howto/set-up-database.html>
   - [ ] skift til noget med en anden executer end SequentialExecutor
     - `Do not use SequentialExecutor in production. Click here for more information.` <https://airflow.apache.org/docs/apache-airflow/2.4.3/executor/index.html>
- - [ ] Storage af hauwl/loot (indhentet data) på noget S3 el.lign
+ - [ ] Storage af haul/loot (indhentet data) på noget S3 el.lign
   - [ ] check docker images
